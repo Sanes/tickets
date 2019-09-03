@@ -15,7 +15,7 @@
 						<div class="uk-flex uk-flex-middle"><span class="uk-margin-small-right" uk-icon="icon: info"></span>
 						@if($ticket->status === 100)
 							В очереди
-						@elseif($ticket->status === 110)
+						@elseif($ticket->status === 200 or $ticket->status === 201)
 							Отвечен
 						@else
 						error
@@ -34,81 +34,11 @@
 					</ul>
 				</div>
 			</div>
-			<h3 class="">Комментарии по запросу</h3>
-			<div class="uk-card uk-card-small uk-margin-bottom uk-box-shadow-large">
-				<div class="uk-card-body" style="background: #FFFFE0;">
-					<div class="uk-child-width-1-2 uk-grid-small uk-text-small" uk-grid>
-						<div class="uk-flex uk-flex-middle"><span class="uk-margin-small-right" uk-icon="icon: user"></span>Администратор</div>
-						<div class="uk-flex uk-flex-middle uk-flex-right"><span class="uk-margin-small-right" uk-icon="icon: clock"></span>{{ $ticket->created_at }}</div>	
-					</div>
-					<hr>
-					<div class="">
-					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate, numquam.
-					</div>
-				</div>
-			</div>
-			<div class="uk-card uk-card-small uk-margin-bottom uk-box-shadow-large">
-				<div class="uk-card-body" style="background: #f5f5f5;">
-					<div class="uk-child-width-1-2 uk-grid-small uk-text-small" uk-grid>
-						<div class="uk-flex uk-flex-middle"><span class="uk-margin-small-right" uk-icon="icon: user"></span>{{ $ticket->user->name }}</div>
-						<div class="uk-flex uk-flex-middle uk-flex-right"><span class="uk-margin-small-right" uk-icon="icon: clock"></span>{{ $ticket->created_at }}</div>	
-					</div>
-					<hr>
-					<div class="">
-					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate, numquam.
-					</div>
-				</div>
-			</div>
-			<div class="uk-card uk-card-small uk-margin-bottom uk-box-shadow-large">
-				<div class="uk-card-body" style="background: #FFFFE0;">
-					<div class="uk-child-width-1-2 uk-grid-small uk-text-small" uk-grid>
-						<div class="uk-flex uk-flex-middle"><span class="uk-margin-small-right" uk-icon="icon: user"></span>Администратор</div>
-						<div class="uk-flex uk-flex-middle uk-flex-right"><span class="uk-margin-small-right" uk-icon="icon: clock"></span>{{ $ticket->created_at }}</div>	
-					</div>
-					<hr>
-					<div class="">
-					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate, numquam.
-					</div>
-				</div>
-			</div>
-			<div class="uk-card uk-card-small uk-margin-bottom uk-box-shadow-large">
-				<div class="uk-card-body" style="background: #f5f5f5;">
-					<div class="uk-child-width-1-2 uk-grid-small uk-text-small" uk-grid>
-						<div class="uk-flex uk-flex-middle"><span class="uk-margin-small-right" uk-icon="icon: user"></span>{{ $ticket->user->name }}</div>
-						<div class="uk-flex uk-flex-middle uk-flex-right"><span class="uk-margin-small-right" uk-icon="icon: clock"></span>{{ $ticket->created_at }}</div>	
-					</div>
-					<hr>
-					<div class="">
-					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate, numquam.
-					</div>
-				</div>
-			</div>
-			<div class="uk-card uk-card-small uk-margin-bottom uk-box-shadow-large">
-				<div class="uk-card-body" style="background: #f5f5f5;">
-					<div class="uk-child-width-1-2 uk-grid-small uk-text-small" uk-grid>
-						<div class="uk-flex uk-flex-middle"><span class="uk-margin-small-right" uk-icon="icon: user"></span>{{ $ticket->user->name }}</div>
-						<div class="uk-flex uk-flex-middle uk-flex-right"><span class="uk-margin-small-right" uk-icon="icon: clock"></span>{{ $ticket->created_at }}</div>	
-					</div>
-					<hr>
-					<div class="">
-					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate, numquam.
-					</div>
-				</div>
-			</div>
-			<div class="uk-card uk-card-small uk-margin-bottom uk-box-shadow-large">
-				<div class="uk-card-body" style="background: #f5f5f5;">
-					<div class="uk-child-width-1-2 uk-grid-small uk-text-small" uk-grid>
-						<div class="uk-flex uk-flex-middle"><span class="uk-margin-small-right" uk-icon="icon: user"></span>{{ $ticket->user->name }}</div>
-						<div class="uk-flex uk-flex-middle uk-flex-right"><span class="uk-margin-small-right" uk-icon="icon: clock"></span>{{ $ticket->created_at }}</div>	
-					</div>
-					<hr>
-					<div class="">
-					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate, numquam.
-					</div>
-				</div>
-			</div>
-			<a href="" class="uk-button uk-button-default uk-flex uk-flex-middle uk-flex-center"><span class="uk-margin-small-right" uk-icon="icon: check"></span>Отметить прочитанным</a>
-
+				@if(Route::currentRouteName() === 'admin.ticket.newest')
+				@include('admin.comment.newest')
+				@else
+				@include('admin.comment.index')
+				@endif
 			<h3 class="">Добавить</h3>
 			<ul uk-tab>
 			    <li><a href="#">Комментарий</a></li>

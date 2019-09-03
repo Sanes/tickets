@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Ticket;
+use App\Comment;
 
 
 class TicketController extends Controller
@@ -16,7 +17,7 @@ class TicketController extends Controller
      */
     public function index()
     {
-        $tickets = Ticket::whereIn('status', [100,110])->orderByDesc('status')->orderByDesc('updated_at')->get();
+        $tickets = Ticket::whereIn('status', [100,101,200,201])->orderByDesc('updated_at')->get();
         // dd($tickets);
         return view('admin.ticket.index', ['tickets' => $tickets]);
     }
@@ -54,7 +55,8 @@ class TicketController extends Controller
         if (!$ticket) {
             return redirect('');
         } else {
-            return view('admin.ticket.show', ['ticket' => $ticket]);
+            $comments = Comment::where('ticket_id', $id)->paginate(20);
+            return view('admin.ticket.show', ['ticket' => $ticket, 'comments' => $comments]);
         }
     }
 
@@ -91,4 +93,20 @@ class TicketController extends Controller
     {
         //
     }
+
+
+
+
+    public function setStatus (Request $request)
+    {
+            $ticket = Ticket::find($request['id']);
+            $ticket->status = $request['status'];
+            $ticket->save();
+            // dd($comments);
+            return redirect(route('admin.ticket.index'));
+        }
+
+
+
+    
 }

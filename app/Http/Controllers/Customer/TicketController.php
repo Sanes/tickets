@@ -17,7 +17,7 @@ class TicketController extends Controller
     public function index()
     {
         $userId = auth()->user()->id;
-        $tickets = Ticket::where('user_id', $userId)->whereIn('status', [100,101,201,200,300])->orderBy('status')->orderByDesc('updated_at')->paginate(4);
+        $tickets = Ticket::where('user_id', $userId)->whereIn('status', [100,101,201,200])->orderByDesc('status')->orderByDesc('updated_at')->paginate(20);
         // dd($tickets);
         return view('customer.ticket.index', ['tickets' => $tickets]);
     }
@@ -111,6 +111,13 @@ class TicketController extends Controller
 
 
 
+    public function archive()
+    {
+        $userId = auth()->user()->id;
+        $tickets = Ticket::where('user_id', $userId)->whereIn('status', [300])->orderBy('status')->orderByDesc('updated_at')->paginate(4);
+        // dd($tickets);
+        return view('customer.ticket.archive', ['tickets' => $tickets]);
+    }
 
 
 
@@ -145,7 +152,7 @@ class TicketController extends Controller
     }
 
 
-    public function markRead (Request $request)
+    public function setStatus (Request $request)
     {
         $userId = auth()->user()->id;
         $ticket = Ticket::where('id', $request['id'])->where('user_id', $userId)->first();

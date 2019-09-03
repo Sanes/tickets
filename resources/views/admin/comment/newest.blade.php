@@ -1,5 +1,7 @@
-<h3 class="">Комментарии по запросу ({{ $comments->total() }})</h3>
-{{ $comments->links('pagination') }}
+<h3 class="">Комментарии по запросу</h3>
+<div class="uk-flex uk-flex-center uk-margin-small-bottom read-more">
+	<a href="{{ route('customer.ticket.latest', $ticket->id) }}" class="uk-button uk-button-link">Показать все комментарии</a>
+</div>
 @forelse($comments as $comment)
 <div class="uk-card uk-card-small uk-margin-bottom uk-box-shadow-large comment">
 	@if($ticket->user->id === $comment->user_id)
@@ -24,11 +26,8 @@
 	</div>
 </div>
 @endforelse
-<div class="uk-margin-large-top">
-	{{ $comments->links('pagination') }}
-</div>
 @if($ticket->status === 201)
-<form action="{{ route('customer.ticket.set-status') }}" method="post">
+<form action="{{ route('customer.ticket.mark-read') }}" method="post">
 	{{ csrf_field() }}
 	<input type="hidden" name="id" value="{{ $ticket->id }}">
 	<input type="hidden" name="status" value="200">

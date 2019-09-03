@@ -39,14 +39,7 @@
 				@else
 				@include('customer.comment.index')
 				@endif
-			@if($ticket->status === 201)
-			<form action="{{ route('customer.ticket.mark-read') }}" method="post">
-				{{ csrf_field() }}
-				<input type="hidden" name="id" value="{{ $ticket->id }}">
-				<input type="hidden" name="status" value="200">
-				<button class="uk-button uk-button-link uk-align-center" type="submit">Отметить прочитанным</button>
-			</form>
-			@endif
+
 			<h3 class="uk-margin-remove-top">Добавить</h3>
 			<ul uk-tab>
 			    <li><a href="#">Комментарий</a></li>
@@ -67,12 +60,14 @@
 					    	</div>
 					    </div>
 			    	</form>
-					<form action="{{ route('customer.ticket.mark-read') }}" method="post">
+			    	@if($ticket->status != 300)
+					<form action="{{ route('customer.ticket.set-status') }}" method="post">
 						{{ csrf_field() }}
 						<input type="hidden" name="id" value="{{ $ticket->id }}">
 						<input type="hidden" name="status" value="300">
 				    	<button class="uk-button uk-button-link" type="submit"><span class="uk-margin-small-right" uk-icon="icon: future;"></span>Перенести в архив</button>
 					</form>
+					@endif
 			    </li>
 			    <li>В разработке</li>
 			    <li>В разработке</li>
@@ -106,6 +101,10 @@
 			</div>
 		</div>
 	</div>
+
+	<div class="uk-position-absolute uk-position-fixed uk-position-bottom-right uk-margin-bottom uk-light">
+		<a class="uk-icon-button scrollup" uk-icon="arrow-up" style="background: #a5a5a5; border-radius: 0;" uk-scroll></a>
+	</div>
 @endsection
 @section('js')
 <script>
@@ -124,5 +123,15 @@ if(count < 20){
 
 $(".read-more").addClass("uk-hidden");
 }
+
+ 
+$(window).scroll(function(){
+	if ($(this).scrollTop() > 1000) {
+	$('.scrollup').fadeIn();
+	} else {
+	$('.scrollup').fadeOut();
+	}
+}); 
+
 </script>
 @endsection

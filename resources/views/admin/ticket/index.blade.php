@@ -21,8 +21,10 @@
 	<td class="uk-table-link"><a href="{{ route('admin.ticket.show', $ticket->id, false) }}" class="uk-link-reset">{{ $ticket->title }}</a></td>
 	@if($ticket->status === 100)
 	<td class="uk-text-nowrap uk-text-warning">В очереди</td>
-	@elseif($ticket->status === 110)
-	<td class="uk-text-nowrap uk-text-success">Новое сообщение</td>
+	@elseif($ticket->status === 101)
+	<td class="uk-text-nowrap uk-text-muted">В работе</td>
+	@elseif($ticket->status === 201)
+	<td class="uk-text-nowrap uk-text-success">Отвечен</td>
 	@endif
 	<td class="uk-text-small uk-text-nowrap">{{ $ticket->user->name }}</td>
 	<td class="uk-text-nowrap uk-text-small">{{\Carbon\Carbon::parse($ticket->updated_at)->shortRelativeDiffForHumans()}}</td>

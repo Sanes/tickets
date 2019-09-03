@@ -27,7 +27,7 @@
 </div>
 @endforelse
 @if($ticket->status === 201)
-<form action="{{ route('customer.ticket.mark-read') }}" method="post">
+<form action="{{ route('customer.ticket.set-status') }}" method="post">
 	{{ csrf_field() }}
 	<input type="hidden" name="id" value="{{ $ticket->id }}">
 	<input type="hidden" name="status" value="200">

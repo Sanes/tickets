@@ -31,7 +31,7 @@
 				</div>
 				<div class="uk-navbar-right">
 					<ul class="uk-navbar-nav">
-						<!-- <li><a href="/admin/ticket">Admin</a></li> -->
+						<li><a href="/admin/ticket">Admin</a></li>
 						<li><a href="/customer/ticket">Customer</a></li>
 						@auth
 						<li class="uk-">
@@ -49,6 +49,17 @@
 	<section class="uk-section uk-section-xsmall uk-section-muted uk-text-center uk-text-small uk-text-uppercase" style="background: #f3f3f3;">
 		&copy; 2019
 	</section>
+	@include('customer.sidebar')
 	@yield('js')
+	<script>
+	$('#menu-button').hover(function(){
+
+	UIkit.offcanvas('#offcanvas-overlay').show();
+
+	});
+	$('.uk-offcanvas-bar').mouseleave(function(){
+		UIkit.offcanvas('#offcanvas-overlay').hide();
+	});
+	</script>
 </body>
 </html>

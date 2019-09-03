@@ -27,11 +27,11 @@
 <div class="uk-margin-large-top">
 	{{ $comments->links('pagination') }}
 </div>
-@if($ticket->status === 201)
-<form action="{{ route('customer.ticket.set-status') }}" method="post">
+@if($ticket->status === 100)
+<form action="{{ route('admin.ticket.set-status') }}" method="post">
 	{{ csrf_field() }}
 	<input type="hidden" name="id" value="{{ $ticket->id }}">
-	<input type="hidden" name="status" value="200">
-	<button class="uk-button uk-button-link uk-align-center" type="submit">Отметить прочитанным</button>
+	<input type="hidden" name="status" value="101">
+	<button class="uk-button uk-button-link uk-align-center" type="submit">Взять в работу</button>
 </form>
 @endif
