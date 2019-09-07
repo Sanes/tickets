@@ -1,6 +1,6 @@
 <h3 class="">Комментарии по запросу</h3>
 <div class="uk-flex uk-flex-center uk-margin-small-bottom read-more">
-	<a href="{{ route('customer.ticket.latest', $ticket->id) }}" class="uk-button uk-button-link">Показать все комментарии</a>
+	<a href="{{ route('admin.ticket.latest', $ticket->id) }}" class="uk-button uk-button-link">Показать все комментарии</a>
 </div>
 @forelse($comments as $comment)
 <div class="uk-card uk-card-small uk-margin-bottom uk-box-shadow-large comment">
@@ -26,11 +26,11 @@
 	</div>
 </div>
 @endforelse
-@if($ticket->status === 201)
-<form action="{{ route('customer.ticket.mark-read') }}" method="post">
+@if($ticket->status === 100)
+<form action="{{ route('admin.ticket.set-status') }}" method="post">
 	{{ csrf_field() }}
 	<input type="hidden" name="id" value="{{ $ticket->id }}">
 	<input type="hidden" name="status" value="200">
-	<button class="uk-button uk-button-link uk-align-center" type="submit">Отметить прочитанным</button>
+	<button class="uk-button uk-button-link uk-align-center" type="submit">Взять в работу</button>
 </form>
 @endif

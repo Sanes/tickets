@@ -96,6 +96,12 @@ class TicketController extends Controller
 
 
 
+    public function archive()
+    {
+        $tickets = Ticket::where('status', [300])->orderByDesc('updated_at')->paginate(4);
+        // dd($tickets);
+        return view('admin.ticket.archive', ['tickets' => $tickets]);
+    }
 
     public function setStatus (Request $request)
     {
@@ -108,5 +114,26 @@ class TicketController extends Controller
 
 
 
+    public function newest($id)
+    {
+        $ticket = Ticket::where('id', $id)->first();
+            $query = Comment::where('ticket_id', $id)->whereNull('hidden')->orderByDesc('created_at', 'desc')->limit(20)->get();
+            $comments = $query->sortBy('created_at');
+            // dd($comments);
+            \Session::flash('latest');
+            return view('admin.ticket.show', ['ticket' => $ticket, 'comments' => $comments]);
+    }
+
+    public function latest($id)
+    {
+        $ticket = Ticket::where('id', $id)->first();
+            $comments = Comment::where('ticket_id', $id)->whereNull('hidden')->paginate(20);
+            // dd($comments);
+            \Session::flash('latest');
+            return redirect('/admin/ticket/show/'.$id.'?page='.$comments->lastPage());
+    }
     
 }
+
+
+

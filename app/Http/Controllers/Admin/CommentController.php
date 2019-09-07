@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Comment;
+use App\Ticket;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -36,7 +37,20 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $userId = auth()->user()->id;
+        $id = $request['id'];
+        $ticket = Ticket::where('id', $id)->first();
+        $body = strip_tags($request['body'], '<a><br><b><u><i><strong>');
+        $comment = new Comment;
+        $comment->user_id = $userId;
+        $comment->ticket_id = $id;
+        $comment->body = $body;
+        $comment->save();
+
+        $ticket = Ticket::find($id)->update(['status' => 200]);
+        $ticket = Ticket::find($id)->touch();
+        return redirect(route('admin.ticket.latest', $id));
+        
     }
 
     /**

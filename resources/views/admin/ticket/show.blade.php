@@ -1,4 +1,4 @@
-@extends('customer.base')
+@extends('admin.base')
 @section('title')
 <title>Запрос # {{ $ticket->id }}</title>
 @endsection
@@ -48,15 +48,17 @@
 
 			<ul class="uk-switcher uk-margin">
 			    <li>
-			    	<form action="" class="">
-			    		<textarea name="" id="" cols="30" rows="10" class="js-editor"></textarea>
+			    	<form action="{{ route('admin.comment.store') }}" class="" method="post">
+			    		{{ csrf_field() }}
+			    		<input type="hidden" name="id" value="{{ $ticket->id }}">
+			    		<textarea name="body" id="" cols="30" rows="10" class="js-editor" required="" onfocus=""></textarea>
+					    <div class="uk-margin">
+					    	<div class="uk-form-controls">
+						    	<button type="submit" class="uk-button uk-button-primary uk-margin-small-right"><span class="uk-margin-small-right" uk-icon="icon: plus;"></span>Отправить</button>
+						    	<a href="{{route('admin.ticket.index')}}" class="uk-button uk-button-danger uk-margin-right"><span class="uk-margin-small-right" uk-icon="icon: forward;"></span>Отмена</a>
+					    	</div>
+					    </div>
 			    	</form>
-				    <div class="uk-margin">
-				    	<div class="uk-form-controls">
-					    	<button type="submit" class="uk-button uk-button-primary uk-margin-small-right"><span class="uk-margin-small-right" uk-icon="icon: plus;"></span>Отправить</button>
-					    	<a href="{{route('customer.ticket.index')}}" class="uk-button uk-button-danger uk-margin-right"><span class="uk-margin-small-right" uk-icon="icon: forward;"></span>Отмена</a>
-				    	</div>
-				    </div>
 			    </li>
 			    <li>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
 			    <li>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur, sed do eiusmod.</li>
@@ -90,6 +92,9 @@
 			</div>
 		</div>
 	</div>
+	<div class="uk-position-absolute uk-position-fixed uk-position-bottom-right uk-margin-bottom uk-light">
+		<a class="uk-icon-button scrollup" uk-icon="arrow-up" style="background: #a5a5a5; border-radius: 0;" uk-scroll></a>
+	</div>
 @endsection
 @section('js')
 <script>
@@ -98,5 +103,25 @@
     	minHeight: 150
     });
   });
+@if (Session::has('latest'))
+$( ".comment" ).last().addClass( "last" );
+ UIkit.scroll('title').scrollTo('.last');
+@endif
+
+var count = $(".comment").length;
+if(count < 20){
+
+$(".read-more").addClass("uk-hidden");
+}
+
+ 
+$(window).scroll(function(){
+	if ($(this).scrollTop() > 1000) {
+	$('.scrollup').fadeIn();
+	} else {
+	$('.scrollup').fadeOut();
+	}
+}); 
+
 </script>
 @endsection

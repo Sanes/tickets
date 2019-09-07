@@ -50,7 +50,7 @@
 	<section class="uk-section uk-section-xsmall uk-section-muted uk-text-center uk-text-small uk-text-uppercase" style="background: #f3f3f3;">
 		&copy; 2019
 	</section>
-	@include('customer.sidebar')
+	@include('admin.sidebar')
 	@yield('js')
 	<script>
 	$('#menu-button').hover(function(){

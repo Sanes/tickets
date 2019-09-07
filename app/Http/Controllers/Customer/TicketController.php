@@ -120,6 +120,20 @@ class TicketController extends Controller
     }
 
 
+    public function setStatus (Request $request)
+    {
+        $userId = auth()->user()->id;
+        $ticket = Ticket::where('id', $request['id'])->where('user_id', $userId)->first();
+        if (!$ticket) {
+            return redirect('/404');
+        } else {
+            $ticket = Ticket::find($request['id']);
+            $ticket->status = $request['status'];
+            $ticket->save();
+            // dd($comments);
+            return redirect(route('customer.ticket.index'));
+        }
+    }
 
 
     public function newest($id)
@@ -152,18 +166,4 @@ class TicketController extends Controller
     }
 
 
-    public function setStatus (Request $request)
-    {
-        $userId = auth()->user()->id;
-        $ticket = Ticket::where('id', $request['id'])->where('user_id', $userId)->first();
-        if (!$ticket) {
-            return redirect('/404');
-        } else {
-            $ticket = Ticket::find($request['id']);
-            $ticket->status = $request['status'];
-            $ticket->save();
-            // dd($comments);
-            return redirect(route('customer.ticket.index'));
-        }
-    }
 }

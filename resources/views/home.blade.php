@@ -16,6 +16,7 @@
 
                     You are logged in!
                     <ul>
+                        <li><a href="/admin/ticket/">admin</a></li>
                         <li><a href="/customer/ticket/">customer</a></li>
                         <li><a href="/customer/ticket/create">customer create</a></li>
                     </ul>

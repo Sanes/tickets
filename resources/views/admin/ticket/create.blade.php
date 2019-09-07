@@ -1,4 +1,4 @@
-@extends('customer.base')
+@extends('admin.base')
 @section('title')
 <title>Отправить запрос</title>
 @endsection

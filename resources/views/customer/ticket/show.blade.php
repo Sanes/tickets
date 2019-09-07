@@ -13,9 +13,9 @@
 						<div class="uk-flex uk-flex-middle"><span class="uk-margin-small-right" uk-icon="icon: user"></span>{{ $ticket->user->name }}</div>
 						<div class="uk-flex uk-flex-middle uk-flex-right"><span class="uk-margin-small-right" uk-icon="icon: clock"></span>{{ $ticket->created_at }}</div>
 						<div class="uk-flex uk-flex-middle"><span class="uk-margin-small-right" uk-icon="icon: info"></span>
-						@if($ticket->status === 100)
+						@if($ticket->status === 100 || $ticket->status === 101)
 							В очереди
-						@elseif($ticket->status === 110)
+						@elseif($ticket->status === 200 || $ticket->status === 201 || $ticket->status === 300)
 							Отвечен
 						@else
 						error
