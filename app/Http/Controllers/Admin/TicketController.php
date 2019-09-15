@@ -55,7 +55,7 @@ class TicketController extends Controller
         if (!$ticket) {
             return redirect('');
         } else {
-            $comments = Comment::where('ticket_id', $id)->paginate(20);
+            $comments = Comment::where('ticket_id', $id)->paginate(5);
             return view('admin.ticket.show', ['ticket' => $ticket, 'comments' => $comments]);
         }
     }
@@ -117,7 +117,7 @@ class TicketController extends Controller
     public function newest($id)
     {
         $ticket = Ticket::where('id', $id)->first();
-            $query = Comment::where('ticket_id', $id)->whereNull('hidden')->orderByDesc('created_at', 'desc')->limit(20)->get();
+            $query = Comment::where('ticket_id', $id)->whereNull('hidden')->orderByDesc('created_at', 'desc')->limit(5)->get();
             $comments = $query->sortBy('created_at');
             // dd($comments);
             \Session::flash('latest');
@@ -127,7 +127,7 @@ class TicketController extends Controller
     public function latest($id)
     {
         $ticket = Ticket::where('id', $id)->first();
-            $comments = Comment::where('ticket_id', $id)->whereNull('hidden')->paginate(20);
+            $comments = Comment::where('ticket_id', $id)->whereNull('hidden')->paginate(5);
             // dd($comments);
             \Session::flash('latest');
             return redirect('/admin/ticket/show/'.$id.'?page='.$comments->lastPage());

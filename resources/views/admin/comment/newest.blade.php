@@ -30,7 +30,7 @@
 <form action="{{ route('admin.ticket.set-status') }}" method="post">
 	{{ csrf_field() }}
 	<input type="hidden" name="id" value="{{ $ticket->id }}">
-	<input type="hidden" name="status" value="200">
+	<input type="hidden" name="status" value="101">
 	<button class="uk-button uk-button-link uk-align-center" type="submit">Взять в работу</button>
 </form>
 @endif
